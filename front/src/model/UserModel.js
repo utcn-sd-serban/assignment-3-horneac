@@ -4,39 +4,50 @@ class UserModel extends EventEmitter {
     constructor() {
         super();
         this.state = {
-            users: [{
-                id: 1,
-                userName: "John",
-                password: "123456",
-                banned: false,
-                type:"user",
-                score: 0
-            }, {
-                id: 1,
-                userName: "Jack",
-                password: "123456",
-                banned: false,
-                type:"user",
-                score: 0
-            }],
+            users: [
+                {
+                    id: 1,
+                    userName: "John",
+                    password: "123456",
+                    banned: false,
+                    type: "user",
+                    score: 0
+                },
+                {
+                    id: 1,
+                    userName: "Jack",
+                    password: "123456",
+                    banned: false,
+                    type: "user",
+                    score: 0
+                }
+            ],
             newUser: {
-                userName:"",
-                password:""
+                userName: "",
+                password: ""
             },
-            currentUser:{
-                userName:""
+            currentUser: {
+                userName: ""
             }
-           
         };
     }
 
+    getClient() {
+        return this.state.client;
+    }
+
+    getAnswerClient() {
+        return this.state.answerClient;
+    }
     addUser(userName, password) {
         this.state = {
             ...this.state,
-            users: this.state.users.concat([{
-                userName : userName,
-                password : password
-            }]) 
+            users: this.state.users.concat([
+                {
+                    userName: userName,
+                    password: password
+                }
+            ])
         };
         this.emit("change", this.state);
     }
@@ -52,27 +63,17 @@ class UserModel extends EventEmitter {
         this.emit("change", this.state);
     }
 
-    changeCurrentUserProperty(property, value){
+    changeCurrentUserProperty(property, value) {
         this.state = {
             ...this.state,
             currentUser: {
                 ...this.state.currentUser,
-            [property] :value            }
-        }
+                [property]: value
+            }
+        };
     }
-
-    login(){
-        // for(let index = 0; index < this.state.users.length; index++) {
-        //     if(this.state.users[index].userName === this.state.newUser.userName) {
-        //         if(this.state.users[index].password === this.state.newUser.password) {
-        //             this.changeCurrentUserProperty("userName",this.state.newUser.userName);
-        //         }
-        //     }
-        // }
-    }
-
 }
 
-const model = new UserModel()
+const model = new UserModel();
 
 export default model;

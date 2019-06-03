@@ -1,5 +1,6 @@
-import questionModel from "../model/QuestionModel.js"
+import questionModel from "../model/QuestionModel.js";
 import model from "../model/UserModel.js";
+import answerModel from "../model/AnswerModel.js";
 
 class QuestionListPresenter {
     onSearchBarChange(tagOrTitle) {
@@ -7,7 +8,6 @@ class QuestionListPresenter {
     }
 
     onClickSearchTitle() {
-        
         questionModel.searchQuestionsByTitle();
         // let questionList = questionModel.state.questions.filter((question, index, arr) => (
         //     question.title.includes(questionModel.state.searchTagOrTitle)
@@ -26,15 +26,22 @@ class QuestionListPresenter {
         questionModel.searchQuestionByTag();
     }
 
-    onChangeNewQuestionProperty(property,value) {
-        questionModel.changeNewQuestionProperty(property,value);
+    onChangeNewQuestionProperty(property, value) {
+        questionModel.changeNewQuestionProperty(property, value);
     }
-    onCreate(){
-        questionModel.addQuestion(questionModel.state.newQuestion.title,questionModel.state.newQuestion.text,model.state.newUser.userName, questionModel.state.newQuestion.tags);
-        questionModel.changeNewQuestionProperty("title", "");
-        questionModel.changeNewQuestionProperty("text", "");
-        questionModel.changeNewQuestionProperty("tags", "");
-        
+    onCreate() {
+        questionModel
+            .addQuestion(
+                questionModel.state.newQuestion.title,
+                questionModel.state.newQuestion.text,
+                model.state.newUser.userName,
+                questionModel.state.newQuestion.tags
+            )
+            .then(() => {
+                questionModel.changeNewQuestionProperty("title", "");
+                questionModel.changeNewQuestionProperty("text", "");
+                questionModel.changeNewQuestionProperty("tags", "");
+            });
     }
 
     onLogOut() {
@@ -43,6 +50,8 @@ class QuestionListPresenter {
     }
 
     onClick(question) {
+        answerModel.state.question = question;
+        answerModel.loadAnswersOfQuestion(question.id);
         window.location.assign("#/question/" + question.id);
     }
 
@@ -50,6 +59,17 @@ class QuestionListPresenter {
         questionModel.loadQuestions();
     }
 
+    onVoteUp(question) {
+        if (model.state.newUser.userName !== question.author) {
+            questionModel.voteUp(question.id, model.state.newUser.userName);
+        }
+    }
+
+    onVoteDown(question) {
+        if (model.state.newUser.userName !== question.author) {
+            questionModel.voteDown(question.id, model.state.newUser.userName);
+        }
+    }
 }
 
 const questionListPresenter = new QuestionListPresenter();
