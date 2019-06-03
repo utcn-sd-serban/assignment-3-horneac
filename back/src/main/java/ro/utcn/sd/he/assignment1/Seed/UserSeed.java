@@ -21,8 +21,8 @@ public class UserSeed implements CommandLineRunner {
         //service.saveUser(new User(0,"emanuel",passwordEncoder.encode("123456"),"user",false,0));
         if (service.listUsers().isEmpty()) {
             service.saveUser(new User(0, "horneac1", passwordEncoder.encode("123456"), "user", false, 0));
-            service.saveUser(new User(0, "horneac",  passwordEncoder.encode("123456"), "user", false, 0));
-            service.saveUser((new User(0, "admin",  passwordEncoder.encode("admin"), "moderator", false, 0)));
+            service.saveUser(new User(0, "horneac", passwordEncoder.encode("123456"), "user", false, 0));
+            service.saveUser((new User(0, "admin", passwordEncoder.encode("admin"), "moderator", false, 0)));
         }
     }
 }

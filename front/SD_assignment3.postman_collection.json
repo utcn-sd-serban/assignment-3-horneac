@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "9ae1514f-6a38-449d-aa54-bec8328441d1",
+		"name": "SD_assignment3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAllQuestions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "abb9244e-06a2-4c7c-ad0f-85f5799d5409",
+						"exec": [
+							"pm.test(\"Response status is OK\", function() {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"There are some questions\", function() {",
+							"    var questions = pm.response.json();",
+							"    pm.expect(questions.length).to.be.gt(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "horneac",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/questions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getVoteCount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b308fa8a-4d5f-4223-91d3-efda0139641e",
+						"exec": [
+							"pm.test(\"Response status is OK\", function() {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"There are some questions\", function() {",
+							"    var question = pm.response.json();",
+							"    pm.expect(question.count).to.be.equal(2);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/questions/vote?id=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"questions",
+						"vote"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_answer_of_question_33",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd3d422b-1cab-4996-a602-b9f6e24a51dc",
+						"exec": [
+							"pm.test(\"Response status is OK\", function() {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"There are some questions\", function() {",
+							"    var answers = pm.response.json();",
+							"    pm.expect(answers.length).to.be.equal(2);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/answers?id=33",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"answers"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "33"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit_answer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e8b51b0c-6dcb-4a4e-bd67-f939d78aaa31",
+						"exec": [
+							"pm.test(\"Response status is OK\", function() {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"There are some questions\", function() {",
+							"    var answer = pm.response.json();",
+							"    pm.expect(answer.text).to.be.equal(\"editat postman\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "horneac",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 2,\n        \"author\": \"horneac\",\n        \"text\": \"editat postman\",\n        \"creation_date_time\": \"2019-06-02T18:07:00.000+0000\",\n        \"questionId\": 33,\n        \"voteCount\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/answer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"answer"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

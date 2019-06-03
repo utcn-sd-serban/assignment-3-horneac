@@ -22,9 +22,9 @@ public class Question {
     @Column(name = "creation_date_time")
     private Timestamp creation_date_time;
 
-    public static Question ofEntity(QuestionDTO dto){
+    public static Question ofEntity(QuestionDTO dto) {
         return new Question(
-                dto.getId(),dto.getAuthor(),dto.getTitle(),dto.getText(),dto.getCreation_date_time()
+                dto.getId(), dto.getAuthor(), dto.getTitle(), dto.getText(), dto.getCreation_date_time()
         );
     }
 }

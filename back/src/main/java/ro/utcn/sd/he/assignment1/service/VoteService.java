@@ -1,6 +1,7 @@
 package ro.utcn.sd.he.assignment1.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import ro.utcn.sd.he.assignment1.model.Answer;
 import ro.utcn.sd.he.assignment1.model.Question;
@@ -17,6 +18,7 @@ public class VoteService {
     private final RepositoryFactory factory;
     private final AnswerService answerService;
     private final QuestionService questionService;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
     public Vote save(Vote vote) {
@@ -42,6 +44,7 @@ public class VoteService {
     public List<Vote> getVotesOfAnswer(Answer answer) {
         return factory.createVoteRepository().getVotesOfAnswer(answer);
     }
+
 
     @Transactional
     public boolean vote(int type, String post, int postId, User currentUser) {
@@ -78,6 +81,8 @@ public class VoteService {
         } else {
             return false;
         }
+
+
         return true;
     }
 

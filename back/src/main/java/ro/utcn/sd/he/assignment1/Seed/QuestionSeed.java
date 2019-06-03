@@ -6,10 +6,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import ro.utcn.sd.he.assignment1.model.Question;
-import ro.utcn.sd.he.assignment1.persistence.api.QuestionRepository;
-import ro.utcn.sd.he.assignment1.persistence.api.RepositoryFactory;
 import ro.utcn.sd.he.assignment1.service.QuestionService;
-import ro.utcn.sd.he.assignment1.service.UserService;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
